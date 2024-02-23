@@ -8,7 +8,8 @@ function App() {
   const [cards, setCards] = useState([])
 
   class Card {
-    constructor(value) {
+    constructor(id, value) {
+      this.id = id
       this.value = value
       this.turned = true
     }
@@ -16,7 +17,7 @@ function App() {
 
   useEffect(() => {
 
-    generateCards(2)
+    generateCards(4)
   
   }, [])
 
@@ -24,8 +25,10 @@ function App() {
 
   function generateCards(numOfPairs) {
     console.log("function runs")
+     
     for (let i = 0; i < numOfPairs; i++) {
-      setCards(prevState => [...prevState, new Card(i), new Card(i)])
+      const id = 0
+      setCards(prevState => [...prevState, new Card(id, i), new Card(id, i)])
     }    
   }
 
@@ -50,17 +53,18 @@ function App() {
   
 setGameArray(NUM_OF_COLS, NUM_OF_ROWS)
 
-function handleCardClick(card) {
+function handleCardClick(event) {
+  console.log(event.target.firstChild.data)
 
 }
 
 const gameElements = gameArray.map(x => 
   <div className='row'>
-    { x.map((card, idx) => 
-    <div className='card' key={idx}>
-      {card ? card.value : "" }
+    { x.map((card, idx) => card ?
+    <div onClick={(e) => handleCardClick(e)} className='card' key={idx}>
+      { card.value }
     </div>
-    )}
+    : "")}
   </div>
   )
 
