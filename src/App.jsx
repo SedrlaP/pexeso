@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 
-const DEFAULT_NUM_OF_PAIRS = 4 
+const DEFAULT_NUM_OF_PAIRS = 4
 const NUM_OF_ROWS = 2
-const NUM_OF_COLS = 2
+const NUM_OF_COLS = 4
 
 function App() {
   const [cards, setCards] = useState([])
@@ -16,68 +16,66 @@ function App() {
   }
 
   useEffect(() => {
-
     generateCards(4)
-  
   }, [])
 
   // generuje karty podle počtu párů
 
   function generateCards(numOfPairs) {
     console.log("function runs")
-     
+
+    let id = 0
     for (let i = 0; i < numOfPairs; i++) {
-      const id = 0
-      setCards(prevState => [...prevState, new Card(id, i), new Card(id, i)])
-    }    
+      setCards((prevState) => [
+        ...prevState,
+        new Card((id += 1), i),
+        new Card((id += 1), i),
+      ])
+    }
   }
 
   console.log("karty", cards)
 
-
   const gameArray = []
 
-  function setGameArray(columns, rows) { 
-  
-    for (let i = 0; i < columns; i++) {
-      
-      gameArray[i] = [];
-      
-      for (let j = 0; j < rows; j++) {
-
-        gameArray[i][j] = cards[(i+j)+(gameArray.length-1)]
-      
+  function setGameArray(rows, columns) {
+    const newCards = cards.map((x) => x)
+    console.log(newCards)
+    for (let i = 0; i < rows; i++) {
+      gameArray[i] = []
+      for (let j = 0; j < columns; j++) {
+        gameArray[i][j] = newCards.shift()
       }
     }
   }
-  
-setGameArray(NUM_OF_COLS, NUM_OF_ROWS)
 
-function handleCardClick(event) {
-  console.log(event.target.firstChild.data)
+  setGameArray(NUM_OF_ROWS, NUM_OF_COLS)
 
-}
+  function populateGameArray() {}
 
-const gameElements = gameArray.map(x => 
-  <div className='row'>
-    { x.map((card, idx) => card ?
-    <div onClick={(e) => handleCardClick(e)} className='card' key={idx}>
-      { card.value }
+  function handleCardClick(card) {
+    console.log(card)
+  }
+
+  const gameElements = gameArray.map((x) => (
+    <div className="row">
+      {x.map((card, idx) =>
+        card ? (
+          <div onClick={() => handleCardClick(card)} className="card" key={idx}>
+            {card.value}
+          </div>
+        ) : (
+          ""
+        )
+      )}
     </div>
-    : "")}
-  </div>
-  )
+  ))
 
   return (
     <>
-      <div className='container'>
-        {gameElements}
-      </div>
+      <div className="container">{gameElements}</div>
     </>
   )
 }
 
 export default App
-
-
-
