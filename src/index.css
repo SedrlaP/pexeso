@@ -11,13 +11,17 @@ body {
 }
 
 .row {
-    background-color: red;
+    border: 1px solid red;
     display: flex;
 }
 
 .card {
     margin: 0.5rem;
-    background-color: blue;
+    border: 1px solid blue;
     height: 200px;
     width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12rem;
 } 

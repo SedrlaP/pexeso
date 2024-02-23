@@ -5,13 +5,12 @@ const NUM_OF_ROWS = 2
 const NUM_OF_COLS = 2
 
 function App() {
-  const [numOfCards, setNumOfCards] = useState(DEFAULT_NUM_OF_PAIRS * 2)
   const [cards, setCards] = useState([])
 
   class Card {
     constructor(value) {
       this.value = value
-      this.turned = false
+      this.turned = true
     }
   }
 
@@ -43,18 +42,27 @@ function App() {
       
       for (let j = 0; j < rows; j++) {
 
-        gameArray[i][j] = []
+        gameArray[i][j] = cards[(i+j)+(gameArray.length-1)]
       
       }
     }
   }
   
-  setGameArray(NUM_OF_COLS, NUM_OF_ROWS)
+setGameArray(NUM_OF_COLS, NUM_OF_ROWS)
 
-  gameArray.map(x => x.map(y => console.log(y)))
-  let a = 0
-  let b = 0
-  const gameElements = gameArray.map(x => <div className='row'>{ x.map(y => <div className='card' key={b++}>{a++}</div>)}</div>)
+function handleCardClick(card) {
+
+}
+
+const gameElements = gameArray.map(x => 
+  <div className='row'>
+    { x.map((card, idx) => 
+    <div className='card' key={idx}>
+      {card ? card.value : "" }
+    </div>
+    )}
+  </div>
+  )
 
   return (
     <>
