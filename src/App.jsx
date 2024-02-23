@@ -51,10 +51,10 @@ function App() {
 
   setGameArray(NUM_OF_ROWS, NUM_OF_COLS)
 
-  function populateGameArray() {}
-
   function handleCardClick(card) {
     console.log(card)
+    // otoceni karty podle id kliknute karty
+    // po otoceni 2 smazat nebo otocit zpet
   }
 
   const gameElements = gameArray.map((x) => (
