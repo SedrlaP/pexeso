@@ -7,13 +7,13 @@ const NUM_OF_COLS = 4
 function App() {
   const [cards, setCards] = useState([])
 
-  class Card {
+  /*class Card {
     constructor(id, value) {
       this.id = id
       this.value = value
       this.turned = true
     }
-  }
+  }*/
 
   useEffect(() => {
     generateCards(4)
@@ -24,12 +24,12 @@ function App() {
   function generateCards(numOfPairs) {
     console.log("function runs")
 
-    let id = 0
+    let rid = 0
     for (let i = 0; i < numOfPairs; i++) {
       setCards((prevState) => [
         ...prevState,
-        new Card((id += 1), i),
-        new Card((id += 1), i),
+        { id: (rid += 1), value: i, turned: true },
+        { id: (rid += 1), value: i, turned: true },
       ])
     }
   }
@@ -42,7 +42,6 @@ function App() {
 
   function setGameArray(rows, columns) {
     const newCards = cards.map((x) => x)
-    console.log(newCards)
     for (let i = 0; i < rows; i++) {
       gameArray[i] = []
       for (let j = 0; j < columns; j++) {
