@@ -38,6 +38,8 @@ function App() {
 
   const gameArray = []
 
+  // generuje 2D pole a vyplní je kartami
+
   function setGameArray(rows, columns) {
     const newCards = cards.map((x) => x)
     console.log(newCards)
@@ -51,18 +53,29 @@ function App() {
 
   setGameArray(NUM_OF_ROWS, NUM_OF_COLS)
 
+  // najde kartu, na kterou uživatel klikl a "otočí ji"
+
   function handleCardClick(card) {
-    console.log(card)
-    // otoceni karty podle id kliknute karty
-    // po otoceni 2 smazat nebo otocit zpet
+    setCards((prevState) =>
+      prevState.map((x) => {
+        return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
+      })
+    )
+
+    // otoceni karty podle id kliknute karty otocenou kartu pridat do noveho pole if pole.length 2 >
+    // po otoceni 2 smazat (filter podle ID karty z noveho pole vuci cards poli) nebo otocit zpet
   }
 
   const gameElements = gameArray.map((x) => (
     <div className="row">
       {x.map((card, idx) =>
         card ? (
-          <div onClick={() => handleCardClick(card)} className="card" key={idx}>
-            {card.value}
+          <div
+            onClick={() => handleCardClick(card)}
+            className={"card " + (card.turned ? "show" : "hidden")}
+            key={idx}
+          >
+            {card.turned ? card.value : ""}
           </div>
         ) : (
           ""
