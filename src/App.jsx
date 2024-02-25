@@ -60,10 +60,12 @@ function App() {
         return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
       })
     )
-
     // otoceni karty podle id kliknute karty otocenou kartu pridat do noveho pole if pole.length 2 >
     // po otoceni 2 smazat (filter podle ID karty z noveho pole vuci cards poli) nebo otocit zpet
   }
+
+  const turnedCards = cards.filter((x) => x.turned === true)
+  console.log("otoceno", turnedCards)
 
   const gameElements = gameArray.map((x) => (
     <div className="row">
