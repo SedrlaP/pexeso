@@ -28,8 +28,8 @@ function App() {
     for (let i = 0; i < numOfPairs; i++) {
       setCards((prevState) => [
         ...prevState,
-        { id: (rid += 1), value: i, turned: true },
-        { id: (rid += 1), value: i, turned: true },
+        { id: (rid += 1), value: i, turned: false },
+        { id: (rid += 1), value: i, turned: false },
       ])
     }
   }
@@ -61,10 +61,33 @@ function App() {
       })
     )
     // otoceni karty podle id kliknute karty otocenou kartu pridat do noveho pole if pole.length 2 >
-    // po otoceni 2 smazat (filter podle ID karty z noveho pole vuci cards poli) nebo otocit zpet
+    // po otoceni 2 smazat (filter podle ID karty z noveho pole vuci cards poli nebo otocit zpet
   }
 
   const turnedCards = cards.filter((x) => x.turned === true)
+  if (turnedCards.length === 2) {
+    console.log("otocene 2 karty")
+    checkTurnedCards(turnedCards[0], turnedCards[1])
+  }
+
+  // zkontroluje otočené karty, pokud jsou stejné smaže je z pole karet, pokud ne otočí se zpět
+
+  function checkTurnedCards(firstCard, secondCard) {
+    firstCard.value === secondCard.value
+      ? // smaže otočené karty z pole karet
+        setCards((prevState) =>
+          prevState.filter((x) => x.value != firstCard.value)
+        )
+      : // otočí karty zpět
+        setCards((prevState) =>
+          prevState.map((x) =>
+            x.id === firstCard.id || x.id === secondCard.id
+              ? { ...x, turned: !x.turned }
+              : { ...x }
+          )
+        )
+  }
+
   console.log("otoceno", turnedCards)
 
   const gameElements = gameArray.map((x) => (
