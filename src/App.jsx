@@ -6,6 +6,7 @@ const NUM_OF_COLS = 4
 
 function App() {
   const [cards, setCards] = useState([])
+  const [gameStarted, setGameStarted] = useState(false)
 
   /*class Card {
     constructor(id, value) {
@@ -23,7 +24,7 @@ function App() {
 
   function generateCards(numOfPairs) {
     console.log("function runs")
-
+    setCards([])
     let rid = 0
     for (let i = 0; i < numOfPairs; i++) {
       setCards((prevState) => [
@@ -55,6 +56,8 @@ function App() {
   // najde kartu, na kterou uživatel klikl a "otočí ji"
 
   function handleCardClick(card) {
+    if (turnedCards.length === 2) return
+    
     setCards((prevState) =>
       prevState.map((x) => {
         return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
@@ -67,7 +70,9 @@ function App() {
   const turnedCards = cards.filter((x) => x.turned === true)
   if (turnedCards.length === 2) {
     console.log("otocene 2 karty")
-    checkTurnedCards(turnedCards[0], turnedCards[1])
+    setTimeout(() => {
+      checkTurnedCards(turnedCards[0], turnedCards[1])
+    }, "1000");
   }
 
   // zkontroluje otočené karty, pokud jsou stejné smaže je z pole karet, pokud ne otočí se zpět
@@ -110,7 +115,9 @@ function App() {
 
   return (
     <>
-      <div className="container">{gameElements}</div>
+      { gameStarted ? 
+        <div className="container">{gameElements}</div>
+       : <button onClick={() => setGameStarted(true)}>START</button>}
     </>
   )
 }
