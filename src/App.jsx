@@ -14,7 +14,39 @@ function App() {
       this.value = value
       this.turned = true
     }
-  }*/
+  }
+  
+  
+
+function findClosestPair(num) {
+  const sqNum = Math.sqrt(num)
+  let lower = Math.floor(sqNum)
+  let upper = Math.ceil(sqNum)
+
+  if (lower * upper === num) {
+    return [lower, upper]
+  } else {
+    while (lower > 1) {
+      lower--;
+      if (num % lower === 0) {
+      upper = num / lower
+        return [lower, upper]
+      }
+    }
+    while (true) {
+      upper++;
+      if (num % upper === 0) {
+      lower = num / upper
+        return [lower, upper]
+      }
+      if (lower * upper > num) {
+        return null;
+      }
+    }
+  }
+}
+  
+  */
 
   useEffect(() => {
     generateCards(4)
@@ -57,7 +89,7 @@ function App() {
 
   function handleCardClick(card) {
     if (turnedCards.length === 2) return
-    
+
     setCards((prevState) =>
       prevState.map((x) => {
         return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
