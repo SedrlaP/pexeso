@@ -8,10 +8,12 @@ function App() {
   const [cards, setCards] = useState([])
   const [gameStarted, setGameStarted] = useState(false)
   const [gameArray, setGameArray] = useState([])
-  const [userInput, setUserInput] = useState(4)
+  const [userInput, setUserInput] = useState(8)
 
-/*
-function findClosestPairToTarget(target) {
+
+// najde počet řádků a sloupců podle počtu karet
+
+function findNumOfRowsAndColumns(target) {
     // Initialize variables to store the closest pair
     let closestPair = [1, target];
 
@@ -31,19 +33,20 @@ function findClosestPairToTarget(target) {
     // Return the closest pair
     return closestPair;
 }
-  */
 
   useEffect(() => {
     generateCards(userInput)
   }, [gameStarted])
 
   useEffect(() => {
-    getGameArray(NUM_OF_ROWS, NUM_OF_COLS)
+    const [rows, cols] = findNumOfRowsAndColumns(userInput)
+    getGameArray(rows, cols)
   }, [cards] )
 
   // generuje karty podle počtu párů
 
-  function generateCards(numOfPairs) {
+  function generateCards(numOfCards) {
+    const numOfPairs = numOfCards / 2
     console.log("function runs")
     setCards([])
     let rid = 0
