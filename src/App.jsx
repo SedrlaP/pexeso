@@ -57,8 +57,6 @@ function findClosestPairToTarget(target) {
 
   console.log("karty", cards)
 
-  // const gameArray = []
-
   // generuje 2D pole a vyplní je kartami
 
   function getGameArray(rows, columns) {
@@ -70,16 +68,15 @@ function findClosestPairToTarget(target) {
         arr[i][j] = newCards.shift()
       }
     }
+
+    // uloží vyplněné 2D pole kartami 
     setGameArray(arr)
   }
-
-  
-
-  // najde kartu, na kterou uživatel klikl a "otočí ji"
 
   function handleCardClick(card) {
     if (turnedCards.length === 2) return
 
+    // otočí kartu 
     setCards((prevState) =>
       prevState.map((x) => {
         return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
@@ -89,7 +86,10 @@ function findClosestPairToTarget(target) {
     // po otoceni 2 smazat (filter podle ID karty z noveho pole vuci cards poli nebo otocit zpet
   }
 
+
+  // uloží otočené karty
   const turnedCards = cards.filter((x) => x.turned === true)
+  
   if (turnedCards.length === 2) {
     console.log("otocene 2 karty")
     setTimeout(() => {
@@ -119,6 +119,7 @@ function findClosestPairToTarget(target) {
 
   console.log("gamearray", gameArray)
 
+  // vyygeneruje elementy
   const gameElements = gameArray.map((x) => (
     <div className="row">
       {x.map((card, idx) =>
