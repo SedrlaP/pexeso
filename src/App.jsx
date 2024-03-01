@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react"
 
 const DEFAULT_NUM_OF_PAIRS = 4
-const NUM_OF_ROWS = 2
+const NUM_OF_ROWS = 2 
 const NUM_OF_COLS = 4
 
 function App() {
   const [cards, setCards] = useState([])
   const [gameStarted, setGameStarted] = useState(false)
   const [gameArray, setGameArray] = useState([])
+  const [userInput, setUserInput] = useState(4)
 
 /*
 function findClosestPairToTarget(target) {
@@ -33,7 +34,7 @@ function findClosestPairToTarget(target) {
   */
 
   useEffect(() => {
-    generateCards(4)
+    generateCards(userInput)
   }, [gameStarted])
 
   useEffect(() => {
@@ -82,8 +83,6 @@ function findClosestPairToTarget(target) {
         return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
       })
     )
-    // otoceni karty podle id kliknute karty otocenou kartu pridat do noveho pole if pole.length 2 >
-    // po otoceni 2 smazat (filter podle ID karty z noveho pole vuci cards poli nebo otocit zpet
   }
 
 
@@ -119,6 +118,11 @@ function findClosestPairToTarget(target) {
 
   console.log("gamearray", gameArray)
 
+  function startGame(e) {
+    e.preventDefault()
+    setGameStarted(true)
+  }
+
   // vyygeneruje elementy
   const gameElements = gameArray.map((x) => (
     <div className="row">
@@ -142,7 +146,11 @@ function findClosestPairToTarget(target) {
     <>
       { gameStarted ? 
         <div className="container">{gameElements}</div>
-       : <button onClick={() => setGameStarted(true)}>START</button>}
+       : <form onSubmit={startGame}>
+          <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} />
+          <button type="submit">START</button>
+        </form>
+        }
     </>
   )
 }
