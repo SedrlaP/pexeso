@@ -7,50 +7,38 @@ const NUM_OF_COLS = 4
 function App() {
   const [cards, setCards] = useState([])
   const [gameStarted, setGameStarted] = useState(false)
+  const [gameArray, setGameArray] = useState([])
 
-  /*class Card {
-    constructor(id, value) {
-      this.id = id
-      this.value = value
-      this.turned = true
-    }
-  }
-  
-  
+/*
+function findClosestPairToTarget(target) {
+    // Initialize variables to store the closest pair
+    let closestPair = [1, target];
 
-function findClosestPair(num) {
-  const sqNum = Math.sqrt(num)
-  let lower = Math.floor(sqNum)
-  let upper = Math.ceil(sqNum)
+    // Iterate through potential factors up to the square root of the target
+    for (let i = 2; i <= Math.sqrt(target); i++) {
+        // Check if the current factor divides the target evenly
+        if (target % i === 0) {
+            // Calculate the other factor
+            let otherFactor = target / i;
+            // Check if this pair of factors is closer than the current closest pair
+            if (Math.abs(i - otherFactor) < Math.abs(closestPair[0] - closestPair[1])) {
+                closestPair = [i, otherFactor];
+            }
+        }
+    }
 
-  if (lower * upper === num) {
-    return [lower, upper]
-  } else {
-    while (lower > 1) {
-      lower--;
-      if (num % lower === 0) {
-      upper = num / lower
-        return [lower, upper]
-      }
-    }
-    while (true) {
-      upper++;
-      if (num % upper === 0) {
-      lower = num / upper
-        return [lower, upper]
-      }
-      if (lower * upper > num) {
-        return null;
-      }
-    }
-  }
+    // Return the closest pair
+    return closestPair;
 }
-  
   */
 
   useEffect(() => {
     generateCards(4)
-  }, [])
+  }, [gameStarted])
+
+  useEffect(() => {
+    getGameArray(NUM_OF_ROWS, NUM_OF_COLS)
+  }, [cards] )
 
   // generuje karty podle počtu párů
 
@@ -69,21 +57,23 @@ function findClosestPair(num) {
 
   console.log("karty", cards)
 
-  const gameArray = []
+  // const gameArray = []
 
   // generuje 2D pole a vyplní je kartami
 
-  function setGameArray(rows, columns) {
+  function getGameArray(rows, columns) {
+    const arr = []
     const newCards = cards.map((x) => x)
     for (let i = 0; i < rows; i++) {
-      gameArray[i] = []
+      arr[i] = []
       for (let j = 0; j < columns; j++) {
-        gameArray[i][j] = newCards.shift()
+        arr[i][j] = newCards.shift()
       }
     }
+    setGameArray(arr)
   }
 
-  setGameArray(NUM_OF_ROWS, NUM_OF_COLS)
+  
 
   // najde kartu, na kterou uživatel klikl a "otočí ji"
 
@@ -119,13 +109,15 @@ function findClosestPair(num) {
         setCards((prevState) =>
           prevState.map((x) =>
             x.id === firstCard.id || x.id === secondCard.id
-              ? { ...x, turned: !x.turned }
+              ? { ...x, turned: false }
               : { ...x }
           )
         )
   }
 
   console.log("otoceno", turnedCards)
+
+  console.log("gamearray", gameArray)
 
   const gameElements = gameArray.map((x) => (
     <div className="row">
