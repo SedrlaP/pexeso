@@ -16,6 +16,7 @@ function App() {
 // najde počet řádků a sloupců podle počtu karet
 
 function findNumOfRowsAndColumns(target) {
+  if (target % 2 !== 0) {target += 1}
     // Initialize variables to store the closest pair
     let closestPair = [1, target];
 

@@ -1,12 +1,14 @@
 function StartGameScreen(props) {
 
     return (
-        <>
-        <form onSubmit={props.startGame}>
-          <input type="text" value={props.userInput} onChange={(e) => props.handleState(e.target.value)} />
-          <button type="submit">START</button>
-        </form>
-        </>
+        <div className="container start">
+          <h1>MEMORY GAME</h1>
+          <form onSubmit={props.startGame}>
+            <label for="userInput">Number of cards</label>
+            <input type="text" id="userInput" value={props.userInput} onChange={(e) => props.handleState(e.target.value)} /><br />
+            <button type="submit">START</button>
+          </form>
+        </div>
     )
 }
 

@@ -11,17 +11,23 @@ body {
 }
 
 .row {
-    border: 1px solid red;
     display: flex;
 }
 
 .card {
     margin: 0.5rem;
     border: 1px solid blue;
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12rem;
+    font-size: 6rem;
 } 
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
