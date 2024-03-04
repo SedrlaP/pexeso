@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react"
+import StartGameScreen from "./components/startGameScreen"
+import EndGameScreen from "./components/endGameScreen"
 
 const DEFAULT_NUM_OF_PAIRS = 4
 const NUM_OF_ROWS = 2 
@@ -78,6 +80,8 @@ function findNumOfRowsAndColumns(target) {
   }
 
   function handleCardClick(card) {
+
+    // zabrání otočení více jak 2 karet v jednu chvíli
     if (turnedCards.length === 2) return
 
     // otočí kartu 
@@ -126,7 +130,11 @@ function findNumOfRowsAndColumns(target) {
     setGameStarted(true)
   }
 
-  // vyygeneruje elementy
+  function restartGame() {
+    setGameStarted(false)
+  }
+
+  // vygeneruje elementy
   const gameElements = gameArray.map((x) => (
     <div className="row">
       {x.map((card, idx) =>
@@ -147,13 +155,14 @@ function findNumOfRowsAndColumns(target) {
 
   return (
     <>
-      { gameStarted ? 
-        <div className="container">{gameElements}</div>
-       : <form onSubmit={startGame}>
-          <input type="text" value={userInput} onChange={(e) => setUserInput(e.target.value)} />
-          <button type="submit">START</button>
-        </form>
-        }
+      { !gameStarted ? 
+        <StartGameScreen startGame={startGame} userInput={userInput} handleState={setUserInput}/>
+        : 
+        cards.length !== 0 ?
+        <div className="container">{gameElements}</div> 
+        :
+        <EndGameScreen restartGame={restartGame}/>
+       }
     </>
   )
 }
