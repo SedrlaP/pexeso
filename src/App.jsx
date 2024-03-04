@@ -1,23 +1,20 @@
 import { useState, useEffect } from "react"
-import StartGameScreen from "./components/startGameScreen"
-import EndGameScreen from "./components/endGameScreen"
+import StartGameScreen from "./components/StartGameScreen"
+import EndGameScreen from "./components/EndGameScreen"
+import Timer from "./components/Timer"
 
-const DEFAULT_NUM_OF_PAIRS = 4
-const NUM_OF_ROWS = 2 
-const NUM_OF_COLS = 4
+const DEFAULT_NUMBER_OF_CARDS = 8
 
 function App() {
   const [cards, setCards] = useState([])
   const [gameStarted, setGameStarted] = useState(false)
   const [gameArray, setGameArray] = useState([])
-  const [userInput, setUserInput] = useState(8)
+  const [userInput, setUserInput] = useState(DEFAULT_NUMBER_OF_CARDS)
 
 
-// najde počet řádků a sloupců podle počtu karet
-
+// Najde počet řádků a sloupců podle počtu karet
 function findNumOfRowsAndColumns(target) {
   if (target % 2 !== 0) {target += 1}
-    // Initialize variables to store the closest pair
     let closestPair = [1, target];
 
     // Iterate through potential factors up to the square root of the target
@@ -32,39 +29,41 @@ function findNumOfRowsAndColumns(target) {
             }
         }
     }
-
-    // Return the closest pair
     return closestPair;
 }
-
   useEffect(() => {
     generateCards(userInput)
-  }, [gameStarted])
+    console.log("karticky", cards)
+  }, [])
 
   useEffect(() => {
     const [rows, cols] = findNumOfRowsAndColumns(userInput)
     getGameArray(rows, cols)
-  }, [cards] )
+  }, [cards])
 
-  // generuje karty podle počtu párů
+
+  // Generuje karty podle počtu párů
 
   function generateCards(numOfCards) {
     const numOfPairs = numOfCards / 2
-    console.log("function runs")
-    setCards([])
+    const cardsArr = []
     let rid = 0
     for (let i = 0; i < numOfPairs; i++) {
-      setCards((prevState) => [
-        ...prevState,
-        { id: (rid += 1), value: i, turned: false },
-        { id: (rid += 1), value: i, turned: false },
-      ])
+      cardsArr.push({ id: (rid += 1), value: i, turned: false })
+      cardsArr.push({ id: (rid += 1), value: i, turned: false })
     }
+   shuffleArray(cardsArr)
   }
 
-  console.log("karty", cards)
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    setCards(array)
+}
 
-  // generuje 2D pole a vyplní je kartami
+  // Generuje 2D pole a vyplní je kartami
 
   function getGameArray(rows, columns) {
     const arr = []
@@ -94,7 +93,7 @@ function findNumOfRowsAndColumns(target) {
   }
 
 
-  // uloží otočené karty
+  // Uloží otočené karty
   const turnedCards = cards.filter((x) => x.turned === true)
   
   if (turnedCards.length === 2) {
@@ -104,7 +103,7 @@ function findNumOfRowsAndColumns(target) {
     }, "1000");
   }
 
-  // zkontroluje otočené karty, pokud jsou stejné smaže je z pole karet, pokud ne otočí se zpět
+  // Zkontroluje otočené karty, pokud jsou stejné smaže je z pole karet, pokud ne otočí se zpět
 
   function checkTurnedCards(firstCard, secondCard) {
     firstCard.value === secondCard.value
@@ -122,10 +121,6 @@ function findNumOfRowsAndColumns(target) {
         )
   }
 
-  console.log("otoceno", turnedCards)
-
-  console.log("gamearray", gameArray)
-
   function startGame(e) {
     e.preventDefault()
     setGameStarted(true)
@@ -135,15 +130,15 @@ function findNumOfRowsAndColumns(target) {
     setGameStarted(false)
   }
 
-  // vygeneruje elementy
+  // Vygeneruje elementy
   const gameElements = gameArray.map((x) => (
     <div className="row">
-      {x.map((card, idx) =>
+      {x.map((card) =>
         card ? (
           <div
+            key={card.id}
             onClick={() => handleCardClick(card)}
             className={"card " + (card.turned ? "show" : "hidden")}
-            key={idx}
           >
             {card.turned ? card.value : ""}
           </div>
@@ -160,10 +155,13 @@ function findNumOfRowsAndColumns(target) {
         <StartGameScreen startGame={startGame} userInput={userInput} handleState={setUserInput}/>
         : 
         cards.length !== 0 ?
-        <div className="container">{gameElements}</div> 
+        <>
+          <Timer timerStarted={gameStarted}/>
+          <div className="container">{gameElements}</div> 
+        </>
         :
-        <EndGameScreen restartGame={restartGame}/>
-       }
+        <EndGameScreen restartGame={restartGame}/>  
+      }
     </>
   )
 }
