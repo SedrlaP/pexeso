@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 
-function Timer({timerStarted}) {
+function Timer({timerStarted, numOfCards}) {
      const [time, setTime] = useState(0);
-  
+    
     useEffect(() => {
       let intervalId;
-      if (timerStarted) {
+      if (timerStarted && numOfCards > 0) {
         intervalId = setInterval(() => setTime(time + 1), 1000);
       }
       return () => clearInterval(intervalId);
@@ -21,7 +21,10 @@ function Timer({timerStarted}) {
     const seconds = Math.floor((time % 60) / 1); 
 
     return (
+      <div>
+        <p>{timerStarted && numOfCards > 0 ? "Time elapsed" : "Total time"}</p> 
         <p>{hours}:{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}</p>
+      </div>
     )
 
 }

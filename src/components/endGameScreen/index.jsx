@@ -1,3 +1,5 @@
+import Timer from "../Timer"
+
 function EndGameScreen(props) {
     return (
         <div className="container end">

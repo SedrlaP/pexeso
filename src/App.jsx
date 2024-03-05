@@ -34,7 +34,7 @@ function findNumOfRowsAndColumns(target) {
   useEffect(() => {
     generateCards(userInput)
     console.log("karticky", cards)
-  }, [])
+  }, [gameStarted])
 
   useEffect(() => {
     const [rows, cols] = findNumOfRowsAndColumns(userInput)
@@ -154,13 +154,15 @@ function findNumOfRowsAndColumns(target) {
       { !gameStarted ? 
         <StartGameScreen startGame={startGame} userInput={userInput} handleState={setUserInput}/>
         : 
-        cards.length !== 0 ?
-        <>
-          <Timer timerStarted={gameStarted}/>
-          <div className="container">{gameElements}</div> 
+        <> 
+          <Timer timerStarted={gameStarted} numOfCards={cards.length}/>
+          {
+            cards.length > 0 ?          
+            <div className="container">{gameElements}</div> 
+            :
+            <EndGameScreen restartGame={restartGame}/> 
+          }  
         </>
-        :
-        <EndGameScreen restartGame={restartGame}/>  
       }
     </>
   )
