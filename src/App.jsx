@@ -87,7 +87,7 @@ function findNumOfRowsAndColumns(target) {
     // otočí kartu 
     setCards((prevState) =>
       prevState.map((x) => {
-        return card.id === x.id ? { ...x, turned: !card.turned } : { ...x }
+        return card.id === x.id ? { ...x, turned: true } : { ...x }
       })
     )
   }
