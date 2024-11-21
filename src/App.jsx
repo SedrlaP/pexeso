@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import StartGameScreen from "./components/StartGameScreen"
+import StartGameScreen from "./components/StartGameScreen/StartGameScreen"
 import EndGameScreen from "./components/EndGameScreen"
 import Timer from "./components/Timer"
 
