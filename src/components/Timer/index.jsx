@@ -22,8 +22,8 @@ function Timer({timerStarted, numOfCards}) {
 
     return (
       <div>
-        <p>{timerStarted && numOfCards > 0 ? "Time elapsed" : "Total time"}</p> 
-        <p>{hours}:{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}</p>
+        <p className="text-lg">{timerStarted && numOfCards > 0 ? "Time elapsed" : "Total time"}</p> 
+        <p className="text-lg">{hours}:{minutes.toString().padStart(2, "0")}:{seconds.toString().padStart(2, "0")}</p>
       </div>
     )
 

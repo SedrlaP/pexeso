@@ -12,18 +12,18 @@ function App() {
   const [userInput, setUserInput] = useState(DEFAULT_NUMBER_OF_CARDS)
 
 
-// Najde počet řádků a sloupců podle počtu karet
+// find number of rows and columns base on number of cards
 function findNumOfRowsAndColumns(target) {
   if (target % 2 !== 0) {target += 1}
     let closestPair = [1, target];
 
-    // Iterate through potential factors up to the square root of the target
+    // iterate through potential factors up to the square root of the target
     for (let i = 2; i <= Math.sqrt(target); i++) {
-        // Check if the current factor divides the target evenly
+        // check if the current factor divides the target evenly
         if (target % i === 0) {
-            // Calculate the other factor
+            // calculate the other factor
             let otherFactor = target / i;
-            // Check if this pair of factors is closer than the current closest pair
+            // check if this pair of factors is closer than the current closest pair
             if (Math.abs(i - otherFactor) < Math.abs(closestPair[0] - closestPair[1])) {
                 closestPair = [i, otherFactor];
             }
@@ -42,7 +42,7 @@ function findNumOfRowsAndColumns(target) {
   }, [cards])
 
 
-  // Generuje karty podle počtu párů
+  // generate cards based on number of card pairs
 
   function generateCards(numOfCards) {
     const numOfPairs = numOfCards / 2
@@ -63,7 +63,7 @@ function findNumOfRowsAndColumns(target) {
     setCards(array)
 }
 
-  // Generuje 2D pole a vyplní je kartami
+  // generate 2D array and fills it with cards
 
   function getGameArray(rows, columns) {
     const arr = []
@@ -75,16 +75,16 @@ function findNumOfRowsAndColumns(target) {
       }
     }
 
-    // uloží vyplněné 2D pole kartami 
+    // save filled array 
     setGameArray(arr)
   }
 
   function handleCardClick(card) {
 
-    // zabrání otočení více jak 2 karet v jednu chvíli
+    // prevent flipping more than 2 cards at a time
     if (turnedCards.length === 2) return
 
-    // otočí kartu 
+    // flip card 
     setCards((prevState) =>
       prevState.map((x) => {
         return card.id === x.id ? { ...x, turned: true } : { ...x }
@@ -93,7 +93,7 @@ function findNumOfRowsAndColumns(target) {
   }
 
 
-  // Uloží otočené karty
+  // save flipped cards
   const turnedCards = cards.filter((x) => x.turned === true)
   
   if (turnedCards.length === 2) {
@@ -103,15 +103,15 @@ function findNumOfRowsAndColumns(target) {
     }, "1000");
   }
 
-  // Zkontroluje otočené karty, pokud jsou stejné smaže je z pole karet, pokud ne otočí se zpět
+  // check if flipped cards are same, if they are delete them from array, if they are not flip them back
 
   function checkTurnedCards(firstCard, secondCard) {
     firstCard.value === secondCard.value
-      ? // smaže otočené karty z pole karet
+      ? // delete flipped cards from array
         setCards((prevState) =>
           prevState.filter((x) => x.value != firstCard.value)
         )
-      : // otočí karty zpět
+      : // flip cards back
         setCards((prevState) =>
           prevState.map((x) =>
             x.id === firstCard.id || x.id === secondCard.id
@@ -130,7 +130,7 @@ function findNumOfRowsAndColumns(target) {
     setGameStarted(false)
   }
 
-  // Vygeneruje elementy
+  // generate card elements
   const gameElements = gameArray.map((x) => (
     <div className="flex">
       {x.map((card) =>
@@ -151,17 +151,28 @@ function findNumOfRowsAndColumns(target) {
 
   return (
     <>
-      { !gameStarted ? 
+      { 
+        !gameStarted ? 
         <StartGameScreen startGame={startGame} userInput={userInput} handleState={setUserInput}/>
         : 
         <> 
+          {  
+            gameStarted && (cards.length > 0) ? 
+            <button 
+              onClick={restartGame} 
+              className="bg-[#69C0E3] hover:bg-[#5BB9D1] py-1 px-2 rounded-lg"
+            >
+              Return to start
+            </button>
+            : <></>
+          }
           <Timer timerStarted={gameStarted} numOfCards={cards.length}/>
-          {
-            cards.length > 0 ?          
-            <div className="flex flex-col">{gameElements}</div> 
-            :
-            <EndGameScreen restartGame={restartGame}/> 
-          }  
+            { 
+              cards.length > 0 ?          
+              <div className="flex flex-col">{gameElements}</div> 
+              :
+              <EndGameScreen restartGame={restartGame}/> 
+            }  
         </>
       }
     </>
