@@ -1,9 +1,7 @@
-import Timer from "../Timer"
-
 function EndGameScreen(props) {
     return (
-        <div className="container end">
-            <div>GAME ENDED</div>
+        <div className="flex flex-col">
+            <div className="">All cards matched!</div>
             <button onClick={() => props.restartGame()}>RESTART</button>
         </div>
      )

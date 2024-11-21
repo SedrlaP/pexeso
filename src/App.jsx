@@ -132,13 +132,13 @@ function findNumOfRowsAndColumns(target) {
 
   // Vygeneruje elementy
   const gameElements = gameArray.map((x) => (
-    <div className="row">
+    <div className="flex">
       {x.map((card) =>
         card ? (
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
-            className={"card " + (card.turned ? "show" : "hidden")}
+            className={"m-2 border border-black h-24 w-24 flex justify-center items-center text-6xl "}
           >
             {card.turned ? card.value : ""}
           </div>
@@ -158,7 +158,7 @@ function findNumOfRowsAndColumns(target) {
           <Timer timerStarted={gameStarted} numOfCards={cards.length}/>
           {
             cards.length > 0 ?          
-            <div className="container">{gameElements}</div> 
+            <div className="flex flex-col">{gameElements}</div> 
             :
             <EndGameScreen restartGame={restartGame}/> 
           }  

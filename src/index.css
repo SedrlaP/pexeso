@@ -1,33 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-}
-
-.row {
-    display: flex;
-}
-
-.card {
-    margin: 0.5rem;
-    border: 1px solid blue;
-    height: 100px;
-    width: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 6rem;
-} 
-
-form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
