@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: "/",
   resolve: {
-    extensions: ['', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
 })
