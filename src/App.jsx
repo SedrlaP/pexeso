@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import StartGameScreen from "./components/StartGameScreen/StartGameScreen"
-import EndGameScreen from "./components/EndGameScreen"
-import Timer from "./components/Timer"
+import EndGameScreen from "./components/EndGameScreen/EndGameScreen"
+import Timer from "./components/Timer/Timer"
 
 const DEFAULT_NUMBER_OF_CARDS = 8
 
