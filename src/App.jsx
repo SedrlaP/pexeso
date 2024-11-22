@@ -138,7 +138,7 @@ function findNumOfRowsAndColumns(target) {
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
-            className={"m-2 border border-black h-24 w-24 flex justify-center items-center text-6xl "}
+            className={"m-2 border border-black h-24 w-24 flex justify-center items-center text-6xl cursor-pointer "}
           >
             {card.turned ? card.value : ""}
           </div>

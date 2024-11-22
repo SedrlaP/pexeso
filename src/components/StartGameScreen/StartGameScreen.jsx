@@ -13,7 +13,7 @@ function StartGameScreen(props) {
           <h1 className="font-semibold text-4xl">MEMORY GAME</h1>
           <form className="flex flex-col justify-center items-center" onSubmit={props.startGame}>
             <label className="mt-4" htmlFor="userInput">Number of cards {props.userInput}</label>
-            <input type="range" id="userInput" min="2" max="80" step="2" value={props.userInput} onChange={(e) => props.handleState(e.target.value)} /><br />
+            <input type="range" id="userInput" min="2" max="48" step="2" value={props.userInput} onChange={(e) => props.handleState(e.target.value)} /><br />
             <button type="submit" className="border py-2 px-4 rounded-lg bg-[#69C0E3] hover:bg-[#5BB9D1]">Start</button>
           </form>
           <div className="flex flex-col items-center justify-center">
