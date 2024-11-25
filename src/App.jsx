@@ -39,6 +39,7 @@ function findNumOfRowsAndColumns(target) {
   useEffect(() => {
     const [rows, cols] = findNumOfRowsAndColumns(userInput)
     getGameArray(rows, cols)
+    console.log("effect")
   }, [cards])
 
 
@@ -63,7 +64,7 @@ function findNumOfRowsAndColumns(target) {
     setCards(array)
 }
 
-  // generate 2D array and fills it with cards
+  // generate 2D array and fill it with cards
 
   function getGameArray(rows, columns) {
     const arr = []
@@ -91,7 +92,6 @@ function findNumOfRowsAndColumns(target) {
       })
     )
   }
-
 
   // save flipped cards
   const turnedCards = cards.filter((x) => x.turned === true)
@@ -138,7 +138,7 @@ function findNumOfRowsAndColumns(target) {
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
-            className={"m-2 border border-black h-24 w-24 flex justify-center items-center text-6xl cursor-pointer "}
+            className={"m-2 h-24 w-24 flex justify-center items-center rounded-sm text-6xl cursor-pointer hover:scale-110 transition-transform ease-in-out delay-150 " + (card.turned ? "bg-white scale-110" : "bg-card")}
           >
             {card.turned ? card.value : ""}
           </div>
@@ -162,7 +162,7 @@ function findNumOfRowsAndColumns(target) {
               onClick={restartGame} 
               className="bg-[#69C0E3] hover:bg-[#5BB9D1] py-1 px-2 rounded-lg"
             >
-              Return to start
+              Main menu
             </button>
             : <></>
           }

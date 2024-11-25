@@ -9,3 +9,8 @@ body {
     justify-content: center;
     background-image: url("./assets/background.svg");
 }
+
+.bg-card {
+    background-image: url("./assets/card-background.svg");
+    background-size: cover;
+}
