@@ -138,7 +138,7 @@ function findNumOfRowsAndColumns(target) {
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
-            className={"m-2 h-24 w-24 flex justify-center items-center rounded-sm text-6xl cursor-pointer hover:scale-110 transition-transform ease-in-out delay-150 " + (card.turned ? "bg-white scale-110" : "bg-card")}
+            className={"m-2 h-24 w-24 flex justify-center items-center rounded-sm text-6xl cursor-pointer " + (card.turned ? "bg-white scale-110" : "bg-card card-pulse")}
           >
             {card.turned ? card.value : ""}
           </div>
