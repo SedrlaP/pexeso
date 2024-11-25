@@ -15,7 +15,7 @@ body {
     background-size: cover;
 }
 
-.card-pulse:hover{
+.card-pulse:hover {
     animation: pulse 1.5s infinite alternate;
   }
   

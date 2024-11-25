@@ -33,13 +33,11 @@ function findNumOfRowsAndColumns(target) {
 }
   useEffect(() => {
     generateCards(userInput)
-    console.log("karticky", cards)
   }, [gameStarted])
 
   useEffect(() => {
     const [rows, cols] = findNumOfRowsAndColumns(userInput)
     getGameArray(rows, cols)
-    console.log("effect")
   }, [cards])
 
 
@@ -97,7 +95,6 @@ function findNumOfRowsAndColumns(target) {
   const turnedCards = cards.filter((x) => x.turned === true)
   
   if (turnedCards.length === 2) {
-    console.log("otocene 2 karty")
     setTimeout(() => {
       checkTurnedCards(turnedCards[0], turnedCards[1])
     }, "1000");
@@ -138,9 +135,13 @@ function findNumOfRowsAndColumns(target) {
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
-            className={"m-2 h-24 w-24 flex justify-center items-center rounded-sm text-6xl cursor-pointer " + (card.turned ? "bg-white scale-110" : "bg-card card-pulse")}
+            className={"m-2 h-24 w-24 rounded-sm text-6xl cursor-pointer relative [perspective:1000px] transition-all duration-500 [transform-style:preserve-3d] " + (card.turned ? "[transform:rotateY(180deg)]" : "hover:scale-110")}
           >
-            {card.turned ? card.value : ""}
+            <div className="bg-card absolute inset-0 h-full w-full [backface-visibility:hidden]">
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center h-full w-full bg-white px-12 text-center [transform:rotateY(180deg)] [backface-visibility:hidden]">
+              {card.value}
+            </div>
           </div>
         ) : (
           ""
