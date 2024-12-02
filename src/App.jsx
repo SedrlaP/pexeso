@@ -151,7 +151,7 @@ function findNumOfRowsAndColumns(target) {
   ))
 
   return (
-    <>
+    <div className="mx-4 my-10 lg:mx-0 lg:my-10">
       { 
         !gameStarted ? 
         <StartGameScreen startGame={startGame} userInput={userInput} handleState={setUserInput}/>
@@ -176,7 +176,7 @@ function findNumOfRowsAndColumns(target) {
             }  
         </>
       }
-    </>
+    </div>
   )
 }
 

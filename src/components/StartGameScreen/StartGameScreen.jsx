@@ -14,6 +14,7 @@ function StartGameScreen(props) {
           <div className="flex flex-col mt-8">
             <h3 className="text-xl">How to play:</h3>
             <ul className="">
+              <li className="text-lg lg:hidden">For the best experience, please switch your phone to landscape mode.</li>
               <li className="text-lg">Setting up the game:</li>
                 <ol className="list-decimal ml-10">
                   <li>Select number of cards</li>
